@@ -9,6 +9,9 @@ public class Main {
 
         Triangle triangle = new Triangle(point1, point2, point3);
         System.out.println(triangle);
+        triangle.move(1,2);
+        System.out.println(triangle.point1.xP + " " +  triangle.point1.yP);
+        // move - true
 
         soutFor();
 

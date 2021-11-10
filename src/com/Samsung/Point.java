@@ -1,8 +1,6 @@
 package com.Samsung;
 
-import java.awt.*;
-
-public class Point extends AllFigure {
+public class Point extends Figure {
 
     double xP;
     double yP;
@@ -25,13 +23,16 @@ public class Point extends AllFigure {
     }
 
     public double distanceXTo(Point myPoint1, Point myPoint2) {
-        double distanceX = Math.abs(myPoint1.xP - myPoint2.xP);
-        return distanceX;
+        return Math.abs(myPoint1.xP - myPoint2.xP);
     }
 
     public double distanceYTo(Point myPoint1, Point myPoint2) {
-        double distanceY = Math.abs(myPoint1.yP - myPoint2.yP);
-        return distanceY;
+        return Math.abs(myPoint1.yP - myPoint2.yP);
     }
 
+    @Override
+    public void move(double dx, double dy) {
+        xP+=dx;
+        yP+=dy;
+    }
 }

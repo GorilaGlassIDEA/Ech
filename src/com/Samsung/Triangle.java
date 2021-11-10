@@ -1,8 +1,6 @@
 package com.Samsung;
 
-import java.awt.*;
-
-public class Triangle extends AllFigure {
+public class Triangle extends Figure {
     Point point1;
     Point point2;
     Point point3;
@@ -14,45 +12,63 @@ public class Triangle extends AllFigure {
         point3 = v3;
     }
 
+    public double utilityA() {
+        double catet_1_A = Math.abs(point1.xP - point2.xP);
+        double catet_2_A = Math.abs(point1.yP - point2.yP);
+
+        return Math.sqrt((catet_1_A * catet_1_A) + (catet_2_A * catet_2_A));
+    }
+
+    public double utilityB() {
+        double catet_1_b = Math.abs(point1.xP - point3.xP);
+        double catet_2_b = Math.abs(point1.yP - point3.yP);
+
+        return Math.sqrt((catet_1_b * catet_1_b) + (catet_2_b * catet_2_b));
+    }
+
+    public double utilityC() {
+        double catet_1_c = Math.abs(point2.xP - point3.xP);
+        double catet_2_c = Math.abs(point2.yP - point3.yP);
+
+        return Math.sqrt((catet_1_c * catet_1_c) + (catet_2_c * catet_2_c));
+    }
+
+
     public double getSurface() {
-        double p = (utilityA(point1, point2, point3) + utilityB(point1, point2, point3) + utilityC(point1, point2, point3)) / 2;
-        return Math.sqrt(p * (p - utilityA(point1, point2, point3)) * (p - utilityB(point1, point2, point3)) * (p - utilityC(point1, point2, point3)));
+        double p = (utilityA() + utilityB() + utilityC()) / 2;
+        return Math.sqrt(p * (p - utilityA()) * (p - utilityB()) * (p - utilityC()));
     }
 
     public double getPerimeter() {
-        return utilityA(point1, point2, point3) + utilityB(point1, point2, point3) + utilityC(point1, point2, point3);
+        return utilityA() + utilityB() + utilityC();
     }
 
     public boolean isIsoceles() {
-        double a = Math.round(utilityA(point1, point2, point3));
-        double b = Math.round(utilityB(point1, point2, point3));
-        double c = Math.round(utilityC(point1, point2, point3));
+        double a = Math.round(utilityA());
+        double b = Math.round(utilityB());
+        double c = Math.round(utilityC());
 
 
         if (a == b) {
             return true;
         } else if (a == c) {
             return true;
-        } else if (b == c) {
-            return true;
-        } else return false;
+        } else return b == c;
     }
 
     public boolean estEquilateral() {
-        double a = Math.round(utilityA(point1, point2, point3));
-        double b = Math.round(utilityB(point1, point2, point3));
-        double c = Math.round(utilityC(point1, point2, point3));
+        double a = Math.round(utilityA());
+        double b = Math.round(utilityB());
+        double c = Math.round(utilityC());
 
 
-        if ((a == b) && (b == c)) {
-            return true;
-        } else return false;
+        return (a == b) && (b == c);
     }
 
     public boolean isRectangle() {
-        double a = utilityA(point1, point2, point3);
-        double b = utilityB(point1, point2, point3);
-        double c = utilityC(point1, point2, point3);
+        double a = utilityA();
+        double b = utilityB();
+        double c = utilityC();
         double cosA = (b * b + c * c - a * a) / (2 * b * c);
         double cosB = (a * a + c * c - b * b) / (2 * a * c);
         double cosC = (a * a + b * b - c * c) / (2 * a * b);
@@ -61,9 +77,7 @@ public class Triangle extends AllFigure {
         double angleB = Math.acos(cosB) * 180 / Math.PI;
         double angleC = Math.acos(cosC) * 180 / Math.PI;
 
-        if ((angleA == 90) || (angleB == 90) || (angleC == 90)) {
-            return true;
-        } else return false;
+        return (angleA == 90) || (angleB == 90) || (angleC == 90);
     }
 
 
@@ -77,5 +91,16 @@ public class Triangle extends AllFigure {
                 "\nisIsoceles: " + isIsoceles() +
                 "\nestEquilateral: " + estEquilateral() +
                 "\nisRectangle: " + isRectangle();
+    }
+    @Override
+    public void move(double dx, double dy) {
+        point1.xP +=dx;
+        point2.xP +=dx;
+        point3.xP +=dx;
+
+        point1.yP +=dy;
+        point2.yP +=dy;
+        point3.yP +=dy;
+
     }
 }
